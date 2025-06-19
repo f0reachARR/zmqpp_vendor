@@ -22,20 +22,18 @@ macro(build_zmqpp)
     CMAKE_ARGS ${cmake_configure_args}
   )
   install(
-    DIRECTORY
-      ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_install/
-    DESTINATION
-      ${CMAKE_INSTALL_PREFIX}
+    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_install/include/
+    DESTINATION include/${PROJECT_NAME}
+  )
+  install(
+    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_install/lib/
+    DESTINATION lib/
+    USE_SOURCE_PERMISSIONS
   )
 endmacro()
 
 build_zmqpp()
-ament_export_include_directories(include)
+ament_export_include_directories(include/${PROJECT_NAME})
 ament_export_libraries(zmqpp)
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
-endif()
 
 ament_package()
